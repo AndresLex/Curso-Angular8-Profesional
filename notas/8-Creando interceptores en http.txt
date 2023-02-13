@@ -1,0 +1,37 @@
+Creando interceptores en http
+
+    > ng g interceptor auth
+
+Funciona para crearlo por linea de comandos
+
+<h3>INTERCEPTAR PETICIONES EN ANGULAR</h3>
+Los interceptores en angular 2+ no siempre existieron, se agregaron desde la versión angular 4.3, apesar de que angularJS siempre los tuvo.
+Para implementar un interceptor se tendría:
+
+Implementar la interfaz HttpIntecerptor
+Configurar en los provider, el provider HTTP_INTERCEPTORS, que se use la implementación HttpIntecerptor.
+<h4>1. Implementando la interfaz HttpInterceptor</h4>
+El interceptor solo necesita un método intercept.
+
+file: auth.interceptor.ts
+
+            @Injectable()
+            export class AuthInterceptor implements HttpInterceptor{
+                intercept( request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
+                    //todo ...
+                    return next.handle(request);
+                }
+            }
+
+<h4>2. Configurar el provider</h4>
+Ahora en el modulo principal de proyecto debemos configurar el proveedor, como se muestra a continuacion.
+file: app.module.ts
+
+            providers:[
+            ...
+            {
+                provide: HTTP_INTERCEPTORS,
+                useClass: AuthInterceptor,
+                multi: true
+            }
+            ]

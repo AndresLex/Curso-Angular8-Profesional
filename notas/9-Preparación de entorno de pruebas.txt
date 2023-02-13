@@ -1,0 +1,9 @@
+Preparación de entorno de pruebas
+
+Karma: https://karma-runner.github.io/latest/index.html Correr las pruebas abriendo un navegador y no indica un resultado. (test runner)
+
+Jasmine <https://jasmine.github.io/ > : framework de testing . Herramientas para poder describir organizar y correr nuestras pruebas
+
+Protactor: https://www.protractortest.org/#/ Para pruebas de interfaz grafica, pruebas punto a punto.
+
+**Cypress: **https://www.cypress.io/ alternativa a protactor para pruebas end to end.

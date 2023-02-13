@@ -1,0 +1,10 @@
+Aplicando el patrón: Smart and Dumb components
+
+Components = Renderizar (Inputs, Outputs)
+Containers = Fetch (buscan datos) y mandan a renderizar en los componentes
+
+Dumb component: debe encargarse de la parte visual e interactiva
+Smarti component: trae datos para mandarlos a al dumb component
+
+Los dumb components tienen de apellido .component 
+Los smart compnents .container

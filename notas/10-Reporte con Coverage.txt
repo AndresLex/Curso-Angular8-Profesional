@@ -1,0 +1,3 @@
+Reporte con Coverage
+
+    > ng test --watch=false --codeCoverage=true

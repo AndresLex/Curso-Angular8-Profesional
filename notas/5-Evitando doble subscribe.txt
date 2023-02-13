@@ -1,0 +1,25 @@
+Evitando doble subscribe
+
+No es una muy buena practica el anidamiento de subscribe al momento de hacer una petición HTTP, debido que nos lleva a un callback hell y esto no escalable y es poco mantenible.
+
+Para evitar este anidamiento utilizaremos observables de rxjs y un operador llamad “switchmap”.
+
+Lo que hace este operador cambia de un observable a otro trayéndonos el resultado del observable anterior (tal es el caso en js usando promise.then o async await por dar un ejemplo"
+
+Ejemplo:
+
+            ngOnInit(): void {
+                this.product$ = this.route.params.pipe(
+                switchMap((params: Params) => {
+                    return this.productService.getProduct(params.id);
+                })
+                );
+            }
+
+Donde “product$” es un observable:
+
+            product$: Observable<Product>;
+
+de este modo podemos hacer una petición a nuestro routing del id del producto y posteriormente hacer un consumo del producto buscado en nuestro template, usando observables.
+
+            <div *ngIf="(product$ | async) as product">

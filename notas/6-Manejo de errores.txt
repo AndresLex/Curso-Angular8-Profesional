@@ -1,0 +1,65 @@
+Manejo de errores
+
+podríamos crear una función en la carpeta Utils, que se creó en el curso de Angular (anterior) para así poder reutilizar esta función en la mayor cantidad de servicios que se pueda. Podría ser algo así:
+
+            import { HttpErrorResponse} from'@angular/common/http'
+
+            import { throwError } from'rxjs'
+
+            exportfunctionHandleHttpResponseError(error: HttpErrorResponse) {
+                console.log(error)
+                return throwError('Mi mensaje de error')
+            }
+
+y simplemente la usamos en cualquier servicio
+
+            import { HandleHttpResponseError } from 'src/app/utils/HandleHttpResponseError'
+            import { map, catchError } from 'rxjs/operators'
+            ...
+            getRandomUsers(): Observable<User[]> {
+                    returnthis.httpClient.get('https://randokldfjsdlmuser.me/api/?results=2')
+                    .pipe(
+                        catchError(HandleHttpResponseError),
+                        map((response: any) => response.results as User[]),
+                    );
+                }
+
+
+NOTAS DE LA CLASE
+
+Al momento de realizar consultas http es recomendable capturar errores al momento de hacer consumo de estos servicios para poder debuggear de mejor forma a futuro.
+
+Existen dos métodos la momento de capturar el error.
+
+La primera es hacer la captura del error pero a nivel de componente, esto es útil si queremos capturar esos errores y notificar al usuario a través de un mensaje en la vista, que ha ocurrido un error.
+
+Para esto, solo tenemos que agregar otro parámetro en nuestro método subscribe, cuando nos suscribimos a un observable:
+
+            fetchProducts(): void {
+                this.productService.getAllProducts().subscribe(
+                (products) => (this.products = products),
+                (error) => console.error(error)
+                );
+            }
+
+Pero si queremos hacer una captura de errores de forma estadística y ordenada, es recomendable hacer esta captura de errores a nivel de servicio y no a nivel de componente (También se puede realizar ambos casos al mismo tiempo).
+
+Para ello usaremos el operador “cathError” de la librería rxjs y el método “trhowError” de la librería http para mostrar el error (es equivalente a usar el método de js console.error()).
+
+Ejemplo:
+
+Función #1: lo que hacemos en esta función es usar un pipe durante la observación y utilizamos el operador “catchError” para atrapar un error, como se puede notar, es recomendable colocar el operador de primero.
+
+            getRandomUsers(): Observable<User[]> {
+                return this.http.get('https://ra2ndomuser.me/api/?results=2').pipe(
+                catchError((error) => this.handleError(error)),
+                map((response: any) => response.results as User[])
+                );
+            }
+
+Función #2: usamos la función " handleError" para simplemente tener una funcion que capture el error de todos nuestros consumos a cualquier servicio, es recomendable tipar los errores de http con el tipo de dato llamado “HttpErrorResponse”.
+
+            private handleError(error: HttpErrorResponse): Observable<never> {
+                console.log(error);
+                return throwError('ups algo salio mal');
+            }

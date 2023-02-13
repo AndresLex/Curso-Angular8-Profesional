@@ -1,0 +1,29 @@
+AOT: Compilación de alto nivel
+
+JIT: Just In Time es cuando hacemos
+ng serve
+
+AOT: es cuando hacemos
+ng build
+
+Como sabemos la gran mayoría del desarrollo se realiza en TypeScript. Este código en TypeScript debe ser compilado a Javascript en algún momento. A esa compilación nos referimos.
+
+.
+Como dice la documentación https://angular.io/guide/aot-compiler, Angular ofrece dos maneras de compilar la aplicación:
+
+JIT (Justo en el momento), que compila la aplicación en el navegador en momento de ejecución. Compilación JIT es la predeterminada cuando corres los comando de solo construcción o de construir y servir:
+ng build
+ng serve
+AOT (Antes del momento), que compila la aplicación en el momento de construcción (compilación). Para compilar de manera AOT, agrega el sufijo —aot a los comandos de construcción:
+ng build --aot
+ng serve --aot
+Nota que cuando corres los comandos con --prod se compila con AOT por defecto.
+.
+
+Todo esto significa que JIT y AOT son solo los momentos en los que vas a compilar el TypeScript a Javascript. Pero también hay ventajas y desventajas.
+
+.
+Cuando compilas JIT en desarrollo te ahorras el tiempo de compilar todo ese TypeScript y lo dejas al momento de ejecución. Pero tenés que llevarte el compilador de Angular que pesa bastantito. Es mejor para hacer compilaciones rápidas en desarrollo.
+.
+
+Cuando compilas en AOT tu tiempo de compilación va a tardar mucho, pero te ahorras el espacio del compilador. Por lo que es mejor para producir el código de producción. Los html ya estan incluidos por lo que no tiene que hacer request nuevamente. Ademas no compila si detecta errores errores en el camino. Otro beneficio es que ofusca el codigo apoyando la seguridad del mismo

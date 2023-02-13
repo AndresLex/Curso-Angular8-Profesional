@@ -1,0 +1,24 @@
+CLI Builders
+
+CLI builders: Son aquellos que nos habilitan extender las funcionalidades del cliente de comandos de Angular (sobretodo correr tareas y correrlas a nuestro modo).
+3 categorías de comandos:
+
+Tareas de creación y modificación de código. 
+    > ng new, Crea la estructura del proyecto
+    > ng generate, Para generar componentes pipes services modules 
+    > ng add, Agraga cualquier otra libreria y automatiza cualquier proceso de configuracion
+    > ng update, 
+
+Tareas simples. 
+    > ng help, Para obtener ayuda del agente de comandos 
+    > ng version, Para saber la version en la que nos encontramos
+    > ng doc, Saber la documentacion 
+
+Tareas complejas. 
+    > ng serve, Crea todo el servidor de desarrollo 
+    > ng build, Compila toda nuestra aplicacion para produccion y genera los assets 
+    > ng test, Para correr pruebas 
+    > ng lint.
+
+los comandos de tareas complejas se abren para extender y hacerlo a nuestro manera. 
+Ej. @angular/fire y @azure/ng-deploy
